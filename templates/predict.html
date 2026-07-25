@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}Predict{% endblock %}
+
+{% block content %}
+    <section class="predict-page">
+        <div class="section-heading">
+            <p class="eyebrow">Risk review</p>
+            <h1>Loan approval assessment</h1>
+        </div>
+        <p>Complete the form below to evaluate the application with the trained machine learning model.</p>
+
+        <div class="info-box">
+            <strong>Model note</strong>
+            <p>This experience is designed for education and demonstration. It should not replace professional financial guidance.</p>
+        </div>
+    </section>
+    <section class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-steps">
+            <div class="step active" id="step-1">
+                <span aria-hidden="true">👤</span>
+                <p>Personal</p>
+            </div>
+            <div class="step" id="step-2">
+                <span aria-hidden="true">💰</span>
+                <p>Financial</p>
+            </div>
+            <div class="step" id="step-3">
+                <span aria-hidden="true">📈</span>
+                <p>Credit</p>
+            </div>
+            <div class="step" id="step-4">
+                <span aria-hidden="true">🏦</span>
+                <p>Loan</p>
+            </div>
+        </div>
+    </section>
+    <section class="prediction-form">
+        <form action="/predict" method="POST">
+            <div class="form-card personal-card" id="personal-card">
+                <h2>
+                    <span class="card-icon" aria-hidden="true">👤</span>
+                    Personal information
+                </h2>
+
+                <label for="age">Age</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>18</span>
+                        <span>80</span>
+                    </div>
+                    <input type="range" name="Age" id="age" min="18" max="80" step="1" value="30">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="employment_status">Employment Status</label>
+                <select name="EmploymentStatus" id="employment_status" required>
+                    <option value="" selected disabled>Select Employment Status</option>
+                    <option value="Employed">Employed</option>
+                    <option value="Self-Employed">Self-Employed</option>
+                    <option value="Unemployed">Unemployed</option>
+                </select>
+
+                <label for="education_level">Education Level</label>
+                <select name="EducationLevel" id="education_level" required>
+                    <option value="" selected disabled>Select Education Level</option>
+                    <option value="Associate">Associate</option>
+                    <option value="Bachelor">Bachelor's Degree</option>
+                    <option value="Doctorate">Doctorate</option>
+                    <option value="High School">High School</option>
+                    <option value="Master">Master's Degree</option>
+                </select>
+
+                <label for="experience">Years of Experience</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>0</span>
+                        <span>65</span>
+                    </div>
+                    <input type="range" name="Experience" id="experience" min="0" max="65" step="1" value="5">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="marital_status">Marital Status</label>
+                <select name="MaritalStatus" id="marital_status" required>
+                    <option value="" selected disabled>Select Marital Status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widowed">Widowed</option>
+                </select>
+
+                <label for="dependents">Number of Dependents</label>
+                <input type="number" name="NumberOfDependents" id="dependents" min="0" max="5" value="0" required>
+
+                <label for="home_ownership">Home Ownership Status</label>
+                <select name="HomeOwnershipStatus" id="home_ownership" required>
+                    <option value="" selected disabled>Select Home Ownership</option>
+                    <option value="Own">Own</option>
+                    <option value="Mortgage">Mortgage</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="job_tenure">Job Tenure (Years)</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>0</span>
+                        <span>20</span>
+                    </div>
+                    <input type="range" name="JobTenure" id="job_tenure" min="0" max="20" step="1" value="5">
+                    <div class="slider-value"></div>
+                </div>
+            </div>
+            <div class="form-card financial-card" id="financial-card">
+                <h2>
+                    <span class="card-icon" aria-hidden="true">💰</span>
+                    Financial information
+                </h2>
+
+                <label for="monthly_income">Monthly Income</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="MonthlyIncome" id="monthly_income" min="0" placeholder="12500" required>
+                </div>
+
+                <label for="monthly_debt">Monthly Debt Payments</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="MonthlyDebtPayments" id="monthly_debt" min="0" placeholder="5000" required>
+                </div>
+
+                <label for="savings_balance">Savings Account Balance</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="SavingsAccountBalance" id="savings_balance" min="0" placeholder="150000" required>
+                </div>
+
+                <label for="checking_balance">Checking Account Balance</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="CheckingAccountBalance" id="checking_balance" min="0" placeholder="25000" required>
+                </div>
+
+                <label for="total_assets">Total Assets</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="TotalAssets" id="total_assets" min="0" placeholder="1200000" required>
+                </div>
+
+                <label for="total_liabilities">Total Liabilities</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="TotalLiabilities" id="total_liabilities" min="0" placeholder="300000" required>
+                </div>
+            </div>
+            <div class="form-card credit-card" id="credit-card">
+                <h2>
+                    <span class="card-icon" aria-hidden="true">📈</span>
+                    Credit history
+                </h2>
+
+                <label for="credit_score">Credit Score</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>300</span>
+                        <span>850</span>
+                    </div>
+                    <input type="range" name="CreditScore" id="credit_score" min="300" max="850" step="1" value="700">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="credit_utilization">Credit Card Utilization</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>0</span>
+                        <span>1</span>
+                    </div>
+                    <input type="range" name="CreditCardUtilizationRate" id="credit_utilization" min="0" max="1" step="0.01" value="0.30">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="open_credit_lines">Number of Open Credit Lines</label>
+                <input type="number" name="NumberOfOpenCreditLines" id="open_credit_lines" min="0" max="15" value="0" required>
+
+                <label for="credit_inquiries">Number of Credit Inquiries</label>
+                <input type="number" name="NumberOfCreditInquiries" id="credit_inquiries" min="0" max="7" value="0" required>
+
+                <label for="payment_history">Payment History</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>8</span>
+                        <span>45</span>
+                    </div>
+                    <input type="range" name="PaymentHistory" id="payment_history" min="8" max="45" step="1" value="25">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="credit_history_length">Length of Credit History (Years)</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>0</span>
+                        <span>30</span>
+                    </div>
+                    <input type="range" name="LengthOfCreditHistory" id="credit_history_length" min="0" max="30" step="1" value="10">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label>Bankruptcy History</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="BankruptcyHistory" value="1" required> Yes</label>
+                    <label><input type="radio" name="BankruptcyHistory" value="0"> No</label>
+                </div>
+
+                <label>Previous Loan Defaults</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="PreviousLoanDefaults" value="1" required> Yes</label>
+                    <label><input type="radio" name="PreviousLoanDefaults" value="0"> No</label>
+                </div>
+            </div>
+            <div class="form-card loan-card" id="loan-card">
+                <h2>
+                    <span class="card-icon" aria-hidden="true">🏦</span>
+                    Loan information
+                </h2>
+
+                <label for="loan_amount">Loan Amount</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" name="LoanAmount" id="loan_amount" min="3500" placeholder="100000" required>
+                </div>
+
+                <label for="loan_duration">Loan Duration (Months)</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>12</span>
+                        <span>120</span>
+                    </div>
+                    <input type="range" name="LoanDuration" id="loan_duration" min="12" max="120" step="6" value="60">
+                    <div class="slider-value"></div>
+                </div>
+
+                <label for="loan_purpose">Loan Purpose</label>
+                <select name="LoanPurpose" id="loan_purpose" required>
+                    <option value="" selected disabled>Select Loan Purpose</option>
+                    <option value="Auto">Auto</option>
+                    <option value="Home">Home Loan</option>
+                    <option value="Education">Education Loan</option>
+                    <option value="Debt Consolidation">Debt Consolidation</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="utility_history">Utility Bills Payment History</label>
+                <div class="slider-box">
+                    <div class="slider-label">
+                        <span>0</span>
+                        <span>1</span>
+                    </div>
+                    <input type="range" name="UtilityBillsPaymentHistory" min="0" max="1" step="0.01" value="0.80">
+                    <div class="slider-value"></div>
+                </div>
+            </div>
+            <div class="submit-container">
+                <p class="form-note">Every field helps refine the prediction.</p>
+                <input type="submit" value="Predict Eligibility">
+            </div>
+        </form>
+    </section>
+    <section class="prediction-result">
+        <div class="result-card">
+            <p class="eyebrow">Result</p>
+            <h2>Prediction outcome</h2>
+            {% if prediction %}
+                <div class="result-status">
+                    {{prediction}}
+                </div>
+            {% else %}
+                <div class="waiting">
+                    <p>Complete the form and submit it to view the prediction.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

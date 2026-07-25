@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <section class="dashboard-header">
+        <p class="eyebrow">Model overview</p>
+        <h1>Model dashboard</h1>
+        <p>Review the selected model, compare candidates, and explore the tuning process behind the final deployment choice.</p>
+    </section>
+
+    <section class="dashboard-section comparison-grid">
+        <div class="dashboard-card">
+            <h2>Model comparison</h2>
+            <div class="model-grid">
+                <div class="model-card selected">
+                    <h3>Logistic Regression</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>92.17%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>92.36%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="selected-model">✓ Selected</strong>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>Support Vector Machine</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>92.22%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>92.11%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="good-fit">Good fit</strong>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>Random Forest</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>90.60%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>90.12%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="overfit">Overfitting</strong>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>Decision Tree</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>85.90%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>85.92%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="overfit">Overfitting</strong>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>K-Nearest Neighbors</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>84.97%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>85.47%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="moderate">Moderate</strong>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h3>Gaussian Naive Bayes</h3>
+                    <div class="model-stat">
+                        <span>Accuracy</span>
+                        <strong>86.22%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>CV Accuracy</span>
+                        <strong>85.69%</strong>
+                    </div>
+                    <div class="model-stat">
+                        <span>Status</span>
+                        <strong class="good-fit">Good fit</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-card">
+            <h2>Accuracy comparison</h2>
+            <img src="/static/accuracy_bar.png" alt="Model comparison chart">
+            <p>The chart compares test accuracy across the machine learning models explored during development. Logistic Regression was selected because it matched the best-performing candidates while remaining interpretable and efficient.</p>
+        </div>
+    </section>
+
+    <section class="dashboard-section comparison-grid">
+        <div class="dashboard-card">
+            <h2>Hyperparameter tuning</h2>
+            <div class="parameter">
+                <span>Solver</span>
+                <strong>newton-cg</strong>
+            </div>
+            <div class="parameter">
+                <span>Regularization (C)</span>
+                <strong>100</strong>
+            </div>
+            <div class="parameter">
+                <span>Maximum iterations</span>
+                <strong>500</strong>
+            </div>
+            <div class="parameter">
+                <span>Search method</span>
+                <strong>RandomizedSearchCV</strong>
+            </div>
+        </div>
+        <div class="dashboard-card">
+            <h2>Before vs after tuning</h2>
+            <img src="/static/tuning_bar.png" alt="Hyperparameter tuning comparison">
+            <p>Hyperparameter optimization improved the model slightly while preserving a small train-test gap, indicating stable generalization and reliable predictions.</p>
+        </div>
+    </section>
+
+    <section class="metric-grid">
+        <div class="metric-card">
+            <h3>Accuracy</h3>
+            <span>92.17%</span>
+        </div>
+        <div class="metric-card">
+            <h3>Precision</h3>
+            <span>85.68%</span>
+        </div>
+        <div class="metric-card">
+            <h3>Recall</h3>
+            <span>80.75%</span>
+        </div>
+        <div class="metric-card">
+            <h3>F1 Score</h3>
+            <span>83.14%</span>
+        </div>
+    </section>
+
+    <section class="visualization-grid">
+        <div class="dashboard-card">
+            <h2>Credit score vs loan amount</h2>
+            <img src="/static/scatter_plot.png" alt="Credit score versus loan amount chart">
+            <p>This scatter plot highlights how applicants with stronger credit profiles often align with more favorable lending outcomes.</p>
+        </div>
+        <div class="dashboard-card">
+            <h2>Scatter matrix</h2>
+            <img src="/static/scatter_matrix.png" alt="Scatter matrix overview">
+            <p>The scatter matrix reveals pairwise relationships across key financial indicators used during exploratory data analysis.</p>
+        </div>
+    </section>
+
+    <section class="final-model">
+        <div class="dashboard-card">
+            <h2>Final selected model</h2>
+            <h3>Logistic Regression</h3>
+            <ul>
+                <li>Highest cross-validation accuracy</li>
+                <li>Excellent generalization</li>
+                <li>Simple and interpretable</li>
+                <li>Fast prediction time</li>
+                <li>Stable after tuning</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}

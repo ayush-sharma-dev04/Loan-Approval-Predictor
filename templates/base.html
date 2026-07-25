@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Loan Approval Predictor{% endblock %}</title>
+    {% block head %}
+        <link rel="stylesheet" href="/static/style.css">
+    {% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">◍</span>
+                <span>Loan Approval Predictor</span>
+            </a>
+            <ul class="nav-links">
+                <li><a class="nav-link" href="/">Home</a></li>
+                <li><a class="nav-link" href="/predict">Loan Predictor</a></li>
+                <li><a class="nav-link" href="/dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="site-main">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for msg in messages %}
+                        <div class="flash">{{msg}}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="page-shell">
+            {% block content %}<!-- Page-specific content goes here -->{% endblock %}
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-ornament" aria-hidden="true"></div>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <p class="footer-title">Loan Approval Predictor</p>
+            </div>
+            <div class="footer-links">
+                <span>Flask API</span>
+                <span>Joblib</span>
+                <span>Scikit-Learn</span>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 Loan Approval Predictor</p>
+    </footer>
+    {% block scripts %}
+        <script src="/static/script.js"></script>
+    {% endblock %}
+</body>
+</html>

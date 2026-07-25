@@ -1,0 +1,7 @@
+.agents
+ML_Projects/
+model_dev.ipynb
+model.pkl
+pipeline.pkl
+temp.py
+tempCodeRunnerFile.py
