@@ -35,6 +35,7 @@
         </div>
     </section>
     <section class="prediction-form">
+        {% set form_data = request.form %}
         <form action="/predict" method="POST">
             <div class="form-card personal-card" id="personal-card">
                 <h2>Personal information</h2>
@@ -45,26 +46,26 @@
                         <span>18</span>
                         <span>80</span>
                     </div>
-                    <input type="range" name="Age" id="age" min="18" max="80" step="1" value="30">
+                    <input type="range" name="Age" id="age" min="18" max="80" step="1" value="{{ form_data.get('Age', '30') }}">
                     <div class="slider-value"></div>
                 </div>
 
                 <label for="employment_status">Employment Status</label>
                 <select name="EmploymentStatus" id="employment_status" required>
-                    <option value="" selected disabled>Select Employment Status</option>
-                    <option value="Employed">Employed</option>
-                    <option value="Self-Employed">Self-Employed</option>
-                    <option value="Unemployed">Unemployed</option>
+                    <option value="" {% if not form_data.get('EmploymentStatus') %}selected{% endif %} disabled>Select Employment Status</option>
+                    <option value="Employed" {% if form_data.get('EmploymentStatus') == 'Employed' %}selected{% endif %}>Employed</option>
+                    <option value="Self-Employed" {% if form_data.get('EmploymentStatus') == 'Self-Employed' %}selected{% endif %}>Self-Employed</option>
+                    <option value="Unemployed" {% if form_data.get('EmploymentStatus') == 'Unemployed' %}selected{% endif %}>Unemployed</option>
                 </select>
 
                 <label for="education_level">Education Level</label>
                 <select name="EducationLevel" id="education_level" required>
-                    <option value="" selected disabled>Select Education Level</option>
-                    <option value="Associate">Associate</option>
-                    <option value="Bachelor">Bachelor's Degree</option>
-                    <option value="Doctorate">Doctorate</option>
-                    <option value="High School">High School</option>
-                    <option value="Master">Master's Degree</option>
+                    <option value="" {% if not form_data.get('EducationLevel') %}selected{% endif %} disabled>Select Education Level</option>
+                    <option value="Associate" {% if form_data.get('EducationLevel') == 'Associate' %}selected{% endif %}>Associate</option>
+                    <option value="Bachelor" {% if form_data.get('EducationLevel') == 'Bachelor' %}selected{% endif %}>Bachelor's Degree</option>
+                    <option value="Doctorate" {% if form_data.get('EducationLevel') == 'Doctorate' %}selected{% endif %}>Doctorate</option>
+                    <option value="High School" {% if form_data.get('EducationLevel') == 'High School' %}selected{% endif %}>High School</option>
+                    <option value="Master" {% if form_data.get('EducationLevel') == "Master's Degree" %}selected{% endif %}>Master's Degree</option>
                 </select>
 
                 <label for="experience">Years of Experience</label>
@@ -73,29 +74,29 @@
                         <span>0</span>
                         <span>65</span>
                     </div>
-                    <input type="range" name="Experience" id="experience" min="0" max="65" step="1" value="5">
+                    <input type="range" name="Experience" id="experience" min="0" max="65" step="1" value="{{ form_data.get('Experience', '5') }}">
                     <div class="slider-value"></div>
                 </div>
 
                 <label for="marital_status">Marital Status</label>
                 <select name="MaritalStatus" id="marital_status" required>
-                    <option value="" selected disabled>Select Marital Status</option>
-                    <option value="Single">Single</option>
-                    <option value="Married">Married</option>
-                    <option value="Divorced">Divorced</option>
-                    <option value="Widowed">Widowed</option>
+                    <option value="" {% if not form_data.get('MaritalStatus') %}selected{% endif %} disabled>Select Marital Status</option>
+                    <option value="Single" {% if form_data.get('MaritalStatus') == 'Single' %}selected{% endif %}>Single</option>
+                    <option value="Married" {% if form_data.get('MaritalStatus') == 'Married' %}selected{% endif %}>Married</option>
+                    <option value="Divorced" {% if form_data.get('MaritalStatus') == 'Divorced' %}selected{% endif %}>Divorced</option>
+                    <option value="Widowed" {% if form_data.get('MaritalStatus') == 'Widowed' %}selected{% endif %}>Widowed</option>
                 </select>
 
                 <label for="dependents">Number of Dependents</label>
-                <input type="number" name="NumberOfDependents" id="dependents" min="0" max="5" value="0" required>
+                <input type="number" name="NumberOfDependents" id="dependents" min="0" max="5" value="{{ form_data.get('NumberOfDependents', '') }}" placeholder="0" required>
 
                 <label for="home_ownership">Home Ownership Status</label>
                 <select name="HomeOwnershipStatus" id="home_ownership" required>
-                    <option value="" selected disabled>Select Home Ownership</option>
-                    <option value="Own">Own</option>
-                    <option value="Mortgage">Mortgage</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Other">Other</option>
+                    <option value="" {% if not form_data.get('HomeOwnershipStatus') %}selected{% endif %} disabled>Select Home Ownership</option>
+                    <option value="Own" {% if form_data.get('HomeOwnershipStatus') == 'Own' %}selected{% endif %}>Own</option>
+                    <option value="Mortgage" {% if form_data.get('HomeOwnershipStatus') == 'Mortgage' %}selected{% endif %}>Mortgage</option>
+                    <option value="Rent" {% if form_data.get('HomeOwnershipStatus') == 'Rent' %}selected{% endif %}>Rent</option>
+                    <option value="Other" {% if form_data.get('HomeOwnershipStatus') == 'Other' %}selected{% endif %}>Other</option>
                 </select>
 
                 <label for="job_tenure">Job Tenure (Years)</label>
@@ -104,7 +105,7 @@
                         <span>0</span>
                         <span>20</span>
                     </div>
-                    <input type="range" name="JobTenure" id="job_tenure" min="0" max="20" step="1" value="5">
+                    <input type="range" name="JobTenure" id="job_tenure" min="0" max="20" step="1" value="{{ form_data.get('JobTenure', '5') }}">
                     <div class="slider-value"></div>
                 </div>
             </div>
@@ -114,37 +115,37 @@
                 <label for="monthly_income">Monthly Income</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="MonthlyIncome" id="monthly_income" min="0" placeholder="12500" required>
+                    <input type="number" name="MonthlyIncome" id="monthly_income" min="0" value="{{ form_data.get('MonthlyIncome', '') }}" placeholder="12500" required>
                 </div>
 
                 <label for="monthly_debt">Monthly Debt Payments</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="MonthlyDebtPayments" id="monthly_debt" min="0" placeholder="5000" required>
+                    <input type="number" name="MonthlyDebtPayments" id="monthly_debt" min="0" value="{{ form_data.get('MonthlyDebtPayments', '') }}" placeholder="5000" required>
                 </div>
 
                 <label for="savings_balance">Savings Account Balance</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="SavingsAccountBalance" id="savings_balance" min="0" placeholder="150000" required>
+                    <input type="number" name="SavingsAccountBalance" id="savings_balance" min="0" value="{{ form_data.get('SavingsAccountBalance', '') }}" placeholder="150000" required>
                 </div>
 
                 <label for="checking_balance">Checking Account Balance</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="CheckingAccountBalance" id="checking_balance" min="0" placeholder="25000" required>
+                    <input type="number" name="CheckingAccountBalance" id="checking_balance" min="0" value="{{ form_data.get('CheckingAccountBalance', '') }}" placeholder="25000" required>
                 </div>
 
                 <label for="total_assets">Total Assets</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="TotalAssets" id="total_assets" min="0" placeholder="1200000" required>
+                    <input type="number" name="TotalAssets" id="total_assets" min="0" value="{{ form_data.get('TotalAssets', '') }}" placeholder="1200000" required>
                 </div>
 
                 <label for="total_liabilities">Total Liabilities</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="TotalLiabilities" id="total_liabilities" min="0" placeholder="300000" required>
+                    <input type="number" name="TotalLiabilities" id="total_liabilities" min="0" value="{{ form_data.get('TotalLiabilities', '') }}" placeholder="300000" required>
                 </div>
             </div>
             <div class="form-card credit-card" id="credit-card">
@@ -156,7 +157,7 @@
                         <span>300</span>
                         <span>850</span>
                     </div>
-                    <input type="range" name="CreditScore" id="credit_score" min="300" max="850" step="1" value="700">
+                    <input type="range" name="CreditScore" id="credit_score" min="300" max="850" step="1" value="{{ form_data.get('CreditScore', '700') }}">
                     <div class="slider-value"></div>
                 </div>
 
@@ -166,15 +167,15 @@
                         <span>0</span>
                         <span>1</span>
                     </div>
-                    <input type="range" name="CreditCardUtilizationRate" id="credit_utilization" min="0" max="1" step="0.01" value="0.30">
+                    <input type="range" name="CreditCardUtilizationRate" id="credit_utilization" min="0" max="1" step="0.01" value="{{ form_data.get('CreditCardUtilizationRate', '0.30') }}">
                     <div class="slider-value"></div>
                 </div>
 
                 <label for="open_credit_lines">Number of Open Credit Lines</label>
-                <input type="number" name="NumberOfOpenCreditLines" id="open_credit_lines" min="0" max="15" value="0" required>
+                <input type="number" name="NumberOfOpenCreditLines" id="open_credit_lines" min="0" max="15" value="{{ form_data.get('NumberOfOpenCreditLines', '') }}" placeholder="0" required>
 
                 <label for="credit_inquiries">Number of Credit Inquiries</label>
-                <input type="number" name="NumberOfCreditInquiries" id="credit_inquiries" min="0" max="7" value="0" required>
+                <input type="number" name="NumberOfCreditInquiries" id="credit_inquiries" min="0" max="7" value="{{ form_data.get('NumberOfCreditInquiries', '') }}" placeholder="0" required>
 
                 <label for="payment_history">Payment History</label>
                 <div class="slider-box">
@@ -182,7 +183,7 @@
                         <span>8</span>
                         <span>45</span>
                     </div>
-                    <input type="range" name="PaymentHistory" id="payment_history" min="8" max="45" step="1" value="25">
+                    <input type="range" name="PaymentHistory" id="payment_history" min="8" max="45" step="1" value="{{ form_data.get('PaymentHistory', '25') }}">
                     <div class="slider-value"></div>
                 </div>
 
@@ -192,20 +193,20 @@
                         <span>0</span>
                         <span>30</span>
                     </div>
-                    <input type="range" name="LengthOfCreditHistory" id="credit_history_length" min="0" max="30" step="1" value="10">
+                    <input type="range" name="LengthOfCreditHistory" id="credit_history_length" min="0" max="30" step="1" value="{{ form_data.get('LengthOfCreditHistory', '10') }}">
                     <div class="slider-value"></div>
                 </div>
 
                 <label>Bankruptcy History</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="BankruptcyHistory" value="1" required> Yes</label>
-                    <label><input type="radio" name="BankruptcyHistory" value="0"> No</label>
+                    <label><input type="radio" name="BankruptcyHistory" value="1" {% if form_data.get('BankruptcyHistory') == '1' %}checked{% endif %} required> Yes</label>
+                    <label><input type="radio" name="BankruptcyHistory" value="0" {% if form_data.get('BankruptcyHistory') == '0' %}checked{% endif %}> No</label>
                 </div>
 
                 <label>Previous Loan Defaults</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="PreviousLoanDefaults" value="1" required> Yes</label>
-                    <label><input type="radio" name="PreviousLoanDefaults" value="0"> No</label>
+                    <label><input type="radio" name="PreviousLoanDefaults" value="1" {% if form_data.get('PreviousLoanDefaults') == '1' %}checked{% endif %} required> Yes</label>
+                    <label><input type="radio" name="PreviousLoanDefaults" value="0" {% if form_data.get('PreviousLoanDefaults') == '0' %}checked{% endif %}> No</label>
                 </div>
             </div>
             <div class="form-card loan-card" id="loan-card">
@@ -214,7 +215,7 @@
                 <label for="loan_amount">Loan Amount</label>
                 <div class="currency-input">
                     <span>₹</span>
-                    <input type="number" name="LoanAmount" id="loan_amount" min="3500" placeholder="100000" required>
+                    <input type="number" name="LoanAmount" id="loan_amount" min="3500" value="{{ form_data.get('LoanAmount', '') }}" placeholder="100000" required>
                 </div>
 
                 <label for="loan_duration">Loan Duration (Months)</label>
@@ -223,18 +224,18 @@
                         <span>12</span>
                         <span>120</span>
                     </div>
-                    <input type="range" name="LoanDuration" id="loan_duration" min="12" max="120" step="6" value="60">
+                    <input type="range" name="LoanDuration" id="loan_duration" min="12" max="120" step="6" value="{{ form_data.get('LoanDuration', '60') }}">
                     <div class="slider-value"></div>
                 </div>
 
                 <label for="loan_purpose">Loan Purpose</label>
                 <select name="LoanPurpose" id="loan_purpose" required>
-                    <option value="" selected disabled>Select Loan Purpose</option>
-                    <option value="Auto">Auto</option>
-                    <option value="Home">Home Loan</option>
-                    <option value="Education">Education Loan</option>
-                    <option value="Debt Consolidation">Debt Consolidation</option>
-                    <option value="Other">Other</option>
+                    <option value="" {% if not form_data.get('LoanPurpose') %}selected{% endif %} disabled>Select Loan Purpose</option>
+                    <option value="Auto" {% if form_data.get('LoanPurpose') == 'Auto' %}selected{% endif %}>Auto</option>
+                    <option value="Home" {% if form_data.get('LoanPurpose') == 'Home' %}selected{% endif %}>Home Loan</option>
+                    <option value="Education" {% if form_data.get('LoanPurpose') == 'Education' %}selected{% endif %}>Education Loan</option>
+                    <option value="Debt Consolidation" {% if form_data.get('LoanPurpose') == 'Debt Consolidation' %}selected{% endif %}>Debt Consolidation</option>
+                    <option value="Other" {% if form_data.get('LoanPurpose') == 'Other' %}selected{% endif %}>Other</option>
                 </select>
 
                 <label for="utility_history">Utility Bills Payment History</label>
@@ -243,20 +244,23 @@
                         <span>0</span>
                         <span>1</span>
                     </div>
-                    <input type="range" name="UtilityBillsPaymentHistory" min="0" max="1" step="0.01" value="0.80">
+                    <input type="range" name="UtilityBillsPaymentHistory" id="utility_history" min="0" max="1" step="0.01" value="{{ form_data.get('UtilityBillsPaymentHistory', '0.80') }}">
                     <div class="slider-value"></div>
                 </div>
             </div>
             <div class="submit-container">
                 <p class="form-note">Every field helps refine the prediction.</p>
-                <input type="submit" value="Predict Eligibility">
+                <div class="action-buttons">
+                    <input type="submit" value="Predict Eligibility">
+                    <button type="button" class="clear-form-btn" id="clear-form-btn">Clear Inputs</button>
+                </div>
             </div>
         </form>
     </section>
-    <section class="prediction-result">
-        <div class="result-card">
+    <section class="prediction-result" id="prediction-result">
+        <div class="result-card{% if prediction == 'Loan Approved' %} result-approved{% elif prediction == 'Loan Rejected' %} result-rejected{% endif %}" aria-live="polite">
             <p class="eyebrow">Result</p>
-            <h2>Prediction outcome</h2>
+            <h2>Prediction Result</h2>
             {% if prediction %}
                 <div class="result-status">
                     {{prediction}}

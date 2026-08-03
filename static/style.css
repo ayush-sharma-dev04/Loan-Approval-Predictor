@@ -664,35 +664,79 @@ input[type="range"] {
     color: var(--muted);
 }
 
-.submit-container input {
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.submit-container input[type="submit"],
+.submit-container button {
     padding: 16px 28px;
     border: none;
     border-radius: 999px;
-    background: var(--brand);
-    color: white;
     font: inherit;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 12px 24px rgba(0, 98, 65, 0.16);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.submit-container input:hover {
+.submit-container input[type="submit"] {
+    background: var(--brand);
+    color: white;
+    box-shadow: 0 12px 24px rgba(0, 98, 65, 0.16);
+}
+
+.submit-container input[type="submit"]:hover,
+.submit-container input[type="submit"]:focus-visible {
     transform: translateY(-2px);
     box-shadow: 0 16px 30px rgba(0, 98, 65, 0.22);
+}
+
+.submit-container .clear-form-btn {
+    background: #f8efe9;
+    color: var(--brand-strong);
+    border: 1px solid #e4d5c9;
+    box-shadow: none;
+}
+
+.submit-container .clear-form-btn:hover,
+.submit-container .clear-form-btn:focus-visible {
+    transform: translateY(-2px);
+    background: #fdf3eb;
 }
 
 .prediction-result {
     padding: 24px 0 80px;
 }
 
+.prediction-result.is-hidden {
+    display: none;
+}
+
 .result-card {
+    max-width: 720px;
+    margin: 0 auto;
     background: white;
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 32px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(47, 47, 47, 0.04);
+    box-shadow: 0 12px 32px rgba(47, 47, 47, 0.06);
+    animation: fadeIn 0.35s ease;
+}
+
+.result-card.result-approved {
+    background: #f4fbf4;
+    border-color: #bcdcc0;
+    color: #174c2f;
+}
+
+.result-card.result-rejected {
+    background: #fff5f5;
+    border-color: #efc1c1;
+    color: #722c2c;
 }
 
 .result-status {
@@ -705,23 +749,30 @@ input[type="range"] {
     font-weight: 800;
 }
 
+.result-card.result-approved .result-status {
+    background: #e3f5e3;
+    color: #174c2f;
+}
+
+.result-card.result-rejected .result-status {
+    background: #fdecec;
+    color: #722c2c;
+}
+
 .waiting p {
     margin: 0;
     color: var(--muted);
 }
 
-.dashboard-header {
-    padding: 70px 0 20px;
-    text-align: center;
-}
-
-.dashboard-header h1 {
-    font-size: clamp(2.1rem, 3.2vw, 2.8rem);
-}
-
-.dashboard-header p {
-    max-width: 760px;
-    margin: 0 auto;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
     color: var(--muted);
 }
 
